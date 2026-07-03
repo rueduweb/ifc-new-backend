@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  MaxLength,
   MinLength,
 } from 'class-validator';
 
@@ -11,7 +12,7 @@ export class SignUpDto {
   @IsString({ message: 'Ce doit être une chaîne de caractères.' })
   @IsNotEmpty({ message: 'Ce champ est requis.' })
   @MinLength(3, { message: 'Au moins 3 caractères.' })
-  @MinLength(25, { message: '25 caractères maximum.' })
+  @MaxLength(25, { message: '25 caractères maximum.' })
   username: string;
 
   @IsEmail({}, { message: 'Cet email est invalide.' })

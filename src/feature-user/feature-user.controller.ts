@@ -11,24 +11,14 @@ import {
   Query,
   NotFoundException,
   ParseIntPipe,
-  UseGuards,
 } from '@nestjs/common';
 import { FeatureUserService } from './feature-user.service';
-import { Roles, Role } from './user.decorator';
-import { RolesGuard } from 'src/guards/roles.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 export class FeatureUserController {
   constructor(private readonly featureUserService: FeatureUserService) {}
-
-  @Get('admin-only')
-  @UseGuards(RolesGuard)
-  @Roles(Role.ADMIN)
-  getAdminData() {
-    return 'This is admin data';
-  }
 
   @Post()
   @HttpCode(201)

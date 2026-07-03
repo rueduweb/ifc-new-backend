@@ -6,8 +6,6 @@ import { FeatureUserModule } from './feature-user/feature-user.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { FeatureUserController } from './feature-user/feature-user.controller';
 import { FeatureUserService } from './feature-user/feature-user.service';
-import { APP_GUARD } from '@nestjs/core';
-import { ThrottlerSilentProxyGuard } from './guards/throttler-silent-proxy.guard';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -34,13 +32,6 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
   controllers: [AppController, FeatureUserController],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerSilentProxyGuard,
-    },
-    AppService,
-    FeatureUserService,
-  ],
+  providers: [AppService, FeatureUserService],
 })
 export class AppModule {}

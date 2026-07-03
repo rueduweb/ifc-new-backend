@@ -19,7 +19,7 @@ export class AuthService {
   async signup(signUpDto: SignUpDto) {
     const existingUser = await this.usersService.findByEmail(signUpDto.email);
 
-    if (!existingUser) {
+    if (existingUser) {
       throw new BadRequestException('Cet email est déjà utilisé.');
     }
     const user = await this.usersService.create(signUpDto);
