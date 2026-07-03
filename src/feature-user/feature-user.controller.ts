@@ -1,4 +1,3 @@
-import { Prisma } from '@prisma/client';
 import {
   Controller,
   Get,
@@ -12,16 +11,28 @@ import {
   Query,
   NotFoundException,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { FeatureUserService } from './feature-user.service';
+import { Roles, Role } from './user.decorator';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 export class FeatureUserController {
   constructor(private readonly featureUserService: FeatureUserService) {}
 
+  @Get('admin-only')
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
+  getAdminData() {
+    return 'This is admin data';
+  }
+
   @Post()
   @HttpCode(201)
-  create(@Body() createUser: Prisma.UserCreateInput) {
+  create(@Body() createUser: CreateUserDto) {
     const user = this.featureUserService.create(createUser);
     if (user === undefined) {
       throw new BadRequestException('Failed to create user.');
@@ -53,11 +64,11 @@ export class FeatureUserController {
   @HttpCode(200)
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateUser: Prisma.UserUpdateInput,
+    @Body() updateUser: UpdateUserDto,
   ) {
     const user = this.featureUserService.update(id, updateUser);
     if (user === undefined) {
-      throw new BadRequestException('Failed to update user.');
+      throw new NotFoundException('User not found.');
     }
     return user;
   }
