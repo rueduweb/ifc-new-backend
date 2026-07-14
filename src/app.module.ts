@@ -7,6 +7,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { FeatureUserController } from './feature-user/feature-user.controller';
 import { FeatureUserService } from './feature-user/feature-user.service';
 import { AuthModule } from './auth/auth.module';
+import { ArticlesModule } from './feature-articles/articles.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AuthModule } from './auth/auth.module';
     DatabaseModule,
     FeatureUserModule,
     AuthModule,
+    ArticlesModule,
   ],
   controllers: [AppController, FeatureUserController],
   providers: [AppService, FeatureUserService],
