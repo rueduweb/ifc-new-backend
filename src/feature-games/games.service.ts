@@ -9,7 +9,6 @@ export class GamesService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createGameDto: CreateGameDto): Promise<Game> {
-    console.log('', createGameDto);
     return await this.databaseService.game.create({
       data: createGameDto,
     });

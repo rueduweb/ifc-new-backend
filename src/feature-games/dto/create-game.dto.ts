@@ -9,6 +9,7 @@ import {
   IsBoolean,
   IsOptional,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateGameDto {
   @IsString({ message: 'Ce doit être une chaîne de caractères.' })
@@ -17,7 +18,8 @@ export class CreateGameDto {
   @MaxLength(50, { message: '50 caractères maximum.' })
   location: string;
 
-  @IsDate()
+  @IsDate({ message: 'Ce doit être une date.' })
+  @Type(() => Date)
   @IsNotEmpty({ message: 'Ce champ est requis.' })
   date: string;
 
