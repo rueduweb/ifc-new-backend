@@ -40,6 +40,24 @@ model Article {
   @@map("articles")
 }
 
+model Game {
+  id          Int @id @default(autoincrement())
+  location    String
+  date        DateTime
+  gameNum     String
+  homeTeam    String
+  awayTeam    String
+  nbGoalHome  Int
+  nbGoalAway  Int
+  note        String
+  forfeit     Boolean
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("games")
+}
+
 enum Role {
   ADMIN
   USER

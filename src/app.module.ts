@@ -8,6 +8,7 @@ import { FeatureUserController } from './feature-user/feature-user.controller';
 import { FeatureUserService } from './feature-user/feature-user.service';
 import { AuthModule } from './auth/auth.module';
 import { ArticlesModule } from './feature-articles/articles.module';
+import { GamesModule } from './feature-games/games.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ArticlesModule } from './feature-articles/articles.module';
     FeatureUserModule,
     AuthModule,
     ArticlesModule,
+    GamesModule,
   ],
   controllers: [AppController, FeatureUserController],
   providers: [AppService, FeatureUserService],

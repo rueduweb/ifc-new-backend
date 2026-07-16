@@ -5,29 +5,52 @@ import {
   MinLength,
   MaxLength,
   IsPositive,
+  IsDate,
+  IsBoolean,
+  IsOptional,
 } from 'class-validator';
 
-export class CreateArticleDto {
+export class CreateGameDto {
   @IsString({ message: 'Ce doit être une chaîne de caractères.' })
   @IsNotEmpty({ message: 'Ce champ est requis.' })
   @MinLength(3, { message: 'Au moins 3 caractères.' })
   @MaxLength(50, { message: '50 caractères maximum.' })
-  title: string;
+  location: string;
+
+  @IsDate()
+  @IsNotEmpty({ message: 'Ce champ est requis.' })
+  date: string;
+
+  @IsOptional()
+  @IsString({ message: 'Ce doit être une chaîne de caractères.' })
+  gameNum: string;
 
   @IsString({ message: 'Ce doit être une chaîne de caractères.' })
   @IsNotEmpty({ message: 'Ce champ est requis.' })
   @MinLength(3, { message: 'Au moins 3 caractères.' })
-  @MaxLength(200, { message: '200 caractères maximum.' })
-  description: string;
+  @MaxLength(50, { message: '50 caractères maximum.' })
+  homeTeam: string;
 
   @IsString({ message: 'Ce doit être une chaîne de caractères.' })
   @IsNotEmpty({ message: 'Ce champ est requis.' })
   @MinLength(3, { message: 'Au moins 3 caractères.' })
-  @MaxLength(2000, { message: 'Texte beaucoup trop long.' })
-  content: string;
+  @MaxLength(50, { message: '50 caractères maximum.' })
+  awayTeam: string;
 
   @IsInt({ message: 'Ce doit être un nombre.' })
   @IsNotEmpty({ message: 'Ce champ est requis.' })
   @IsPositive()
-  authorId: number;
+  nbGoalHome: number;
+
+  @IsInt({ message: 'Ce doit être un nombre.' })
+  @IsNotEmpty({ message: 'Ce champ est requis.' })
+  @IsPositive()
+  nbGoalAway: number;
+
+  @IsOptional()
+  @IsString()
+  note: string;
+
+  @IsBoolean()
+  forfeit: boolean;
 }
