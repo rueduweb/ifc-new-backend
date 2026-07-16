@@ -9,7 +9,8 @@ import {
   HttpCode,
 } from '@nestjs/common';
 import { PlayersService } from './players.service';
-import { Prisma } from '@prisma/client';
+import { CreatePlayerDto } from './dto/create-player.dto';
+import { UpdatePlayerDto } from './dto/update-player.dto';
 
 @Controller('players')
 export class PlayersController {
@@ -17,7 +18,7 @@ export class PlayersController {
 
   @Post()
   @HttpCode(201)
-  create(@Body() createPlayerDto: Prisma.PlayerCreateInput) {
+  create(@Body() createPlayerDto: CreatePlayerDto) {
     return this.playersService.create(createPlayerDto);
   }
 
@@ -35,10 +36,7 @@ export class PlayersController {
 
   @Patch(':id')
   @HttpCode(200)
-  update(
-    @Param('id') id: string,
-    @Body() updatePlayerDto: Prisma.PlayerUpdateInput,
-  ) {
+  update(@Param('id') id: string, @Body() updatePlayerDto: UpdatePlayerDto) {
     return this.playersService.update(+id, updatePlayerDto);
   }
 
