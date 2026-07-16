@@ -1,19 +1,20 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
-import { Prisma } from '@prisma/client';
+import { CreatePartnerDto } from './dto/create-partner.dto';
+import { UpdatePartnerDto } from './dto/update-partner.dto';
+import { Partner } from './entities/partner.entity';
 
 @Injectable()
 export class PartnersService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async create(createPartnerDto: Prisma.PartnerCreateInput) {
-    console.log('Partner Prisma Input : ', createPartnerDto);
+  async create(createPartnerDto: CreatePartnerDto): Promise<Partner> {
     return await this.databaseService.partner.create({
       data: createPartnerDto,
     });
   }
 
-  async findAll() {
+  async findAll(): Promise<Partner[]> {
     return await this.databaseService.partner.findMany({
       orderBy: {
         createdAt: 'desc',
@@ -21,7 +22,7 @@ export class PartnersService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<Partner | null> {
     const partner = await this.databaseService.partner.findUnique({ where: { id } });
     if (!partner) {
       throw new NotFoundException('Partner not found.');
@@ -29,8 +30,10 @@ export class PartnersService {
     return partner;
   }
 
-  async update(id: number, updatePartnerDto: Prisma.PartnerUpdateInput) {
-    console.log('Partner Prisma Input : ', updatePartnerDto);
+  async update(
+    id: number,
+    updatePartnerDto: UpdatePartnerDto,
+  ): Promise<Partner> {
     const partner = await this.databaseService.partner.findUnique({ where: { id } });
     if (!partner) {
       throw new NotFoundException('Partner not found.');
@@ -43,10 +46,8 @@ export class PartnersService {
     });
   }
 
-  async remove(id: number) {
-    const partner = await this.databaseService.partner.findUnique({
-      where: { id },
-    });
+  async remove(id: number): Promise<Partner> {
+    const partner = await this.databaseService.partner.findUnique({ where: { id } });
     if (!partner) {
       throw new NotFoundException('Partner not found.');
     }
