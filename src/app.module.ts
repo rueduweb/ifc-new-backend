@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { ArticlesModule } from './feature-articles/articles.module';
 import { GamesModule } from './feature-games/games.module';
 import { PlayersModule } from './feature-players/players.module';
+import { PartnersModule } from './partners/partners.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { PlayersModule } from './feature-players/players.module';
     ArticlesModule,
     GamesModule,
     PlayersModule,
+    PartnersModule,
   ],
   controllers: [AppController, FeatureUserController],
   providers: [AppService, FeatureUserService],
