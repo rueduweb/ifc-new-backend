@@ -77,6 +77,25 @@ model Player {
   @@map("players")
 }
 
+model Partner {
+  id			    Int @id @default(autoincrement())
+  name		    String
+  description String
+  email		    String @unique
+  phone		    String?
+  logo		    String?
+  video		    String?
+  activity	  String
+  address		  String
+  contact		  String?
+  socialMedia String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("partners")
+}
+
 enum Role {
   ADMIN
   USER
