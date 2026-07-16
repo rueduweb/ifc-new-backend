@@ -58,6 +58,25 @@ model Game {
   @@map("games")
 }
 
+model Player {
+  id 			    Int @id @default(autoincrement())
+  firstname 	String
+  lastname 	  String
+  email 		  String @unique
+  address 	  String
+  age 		    Int
+  dob			    DateTime
+  position	  String
+  nbGoal		  Int
+  nbAssist	  Int
+  nbGame		  Int
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("players")
+}
+
 enum Role {
   ADMIN
   USER
